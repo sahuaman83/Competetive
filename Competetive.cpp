@@ -15,15 +15,12 @@ int main(){
         ll n;
         cin>>n;
         ll a[n];
-        set<int>s;
         for(ll i=0;i<n;i++)
         {
         cin>>a[i];
-        s.insert(a[i]);
         }
         
-        
-        cout<<s.size()<<endl;
+   
 }
 return 0;
 }
