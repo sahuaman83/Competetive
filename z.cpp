@@ -12,12 +12,8 @@ int main(){
     ll t;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        ll a[n];
-        for(ll int i=0;i<n;i++)
-             cin>>a[i];
-
-}
+        ll n,a,b,c,d;
+        cin>>n>>a>>b>>c>>d;
+    }
 return 0;
 }

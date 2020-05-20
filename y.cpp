@@ -12,12 +12,12 @@ int main(){
     ll t;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        ll a[n];
-        for(ll int i=0;i<n;i++)
-             cin>>a[i];
-
-}
+        ll n,a,b,c,d;
+        cin>>n>>a>>b>>c>>d;
+        if( ((a-b)*n < (c-d) && (a+b)*n < (c-d) )  ||  ((a-b)*n > (c+d)) )
+        	cout<<"No"<<endl;
+        else
+        	cout<<"Yes"<<endl;
+    }
 return 0;
 }
