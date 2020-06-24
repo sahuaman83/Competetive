@@ -17,7 +17,6 @@ int main(){
         ll a[n];
         for(ll int i=0;i<n;i++)
              cin>>a[i];
-
 }
 return 0;
 }
