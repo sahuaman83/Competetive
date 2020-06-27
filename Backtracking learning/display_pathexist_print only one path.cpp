@@ -40,7 +40,7 @@ bool findPath(int maze[][3],int n,int x,int y,int path [][3])
         else
         {
             path[x][y]=0;   // jab maan lo ek bhi direction mein nhi ja pa rha matlab sari direction block hai
-            return 0;       // toh jha khade ho usko dobara zero kro aur return flase krkr baktrack kr jao
+            return 0;       // toh jha khade ho usko dobara zero kro aur return false krkr baktrack kr jao
             
         }
     
