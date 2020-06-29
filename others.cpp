@@ -17,64 +17,27 @@ int main(){
         ll a[n];
         for(ll int i=0;i<n;i++)
              cin>>a[i];
-         ll maxi=0;
+         unordered_map<ll,ll> m;
+         set<ll> s;
          for(ll int i=0;i<n;i++)
-        {
-             ll x=log2(a[i]);
-           maxi=max(maxi,x);
-        }
-        if(k==1)
-        {
-            ll ans=pow(2,maxi);
-            ll fans=0;
-            bool flag=0;
-            for(ll i=maxi-1;i>=0;i++)
+         {
+            if(a[i] % k!=0)
             {
-                ll x=pow(2,i);
-                ll mand=0;
-                for(ll int j=0;j<n;j++)
-                    {
-                        mand+=(x^a[i]);
-                    }
-                    if(mand==ans)
-                    {
-                        flag=1;
-                        fans=x;
-                    }
+                ll t=k-(a[i] % k);
+                m[t]++;
+                s.insert(t);
             }
-            if(flag)
-            cout<<fans<<endl;
-            else
-            cout<<ans<<endl;
+         }
+         ll ans=0;
+         auto it=s.rbegin();
+         ans+=*it;
+         for(auto x:m)
+         {
+            if(x.second>1)
+                ans+=x.first;
+         }
+         cout<<ans+1<<endl;
 
-        }
-        else
-        if(k==2)
-        {
-            ll ans=pow(2,maxi)+pow(2,(maxi-1));
-            ll fans=0;
-            bool flag=0;
-            for(ll i=maxi-1;i>=0;i++)
-            {
-                ll x=pow(2,maxi)+pow(2,i);
-                ll mand=0;
-                for(ll int j=0;j<n;j++)
-                    {
-                        mand+=(x^a[i]);
-                    }
-                    if(mand==ans)
-                    {
-                        flag=1;
-                        fans=x;
-                    }
-            }
-            if(flag)
-            cout<<fans<<endl;
-            else
-            cout<<ans<<endl;
-        }
-        else
-            cout<<pow(2,maxi)<<endl;
 }
 return 0;
 }

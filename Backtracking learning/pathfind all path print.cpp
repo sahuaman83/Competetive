@@ -7,9 +7,9 @@ void findPath(int maze[][3],int n,int x,int y,int path [][3])
                                                     //**Important to see
     if(x<0 || x>=n || y<0 || y>=n || maze[x][y]==0  ) // yha par sath mein path[x][y]==1 wali condition
              return;                              // dalne par sirf ek path print ho rha kyuki if(x==n-1 && y==n-1) condition neche hai
-                                                // isko upar dalte hi sare print hone lagengi kykuki last meij print krta hai stack ki wjah se
+                                                // isko upar dalte hi sare print hone lagengi kykuki last mein print krta hai stack ki wjah se
                                                 // toh niche nahi jane de payega toh yha par condtion sabse upar wali or krkr nhi lga rhe
-                                                // ek aur point agar yha par or ke sath condtion lgate hai toh print wale mein jo cooment kr rkha hai na
+                                                // ek aur point agar yha par or ke sath condtion lgate hai toh print wale mein jo comment kr rkha hai na
                                                 // usko krna pdega destination path agan zero krna pdega toh bhi sari path print ho jayegi 
         
    if(x==n-1 && y==n-1)
