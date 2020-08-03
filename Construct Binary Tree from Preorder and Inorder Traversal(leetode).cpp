@@ -34,7 +34,7 @@ class Solution {
 public:
     TreeNode* buildTreehelper(vector<int> p, vector<int> i,int inos, int inoe, int pres, int pree)
     {
-        if(inos>inoe)
+        if(pres>pree)     // OR if(inos>inoe)    //when empty array is given
             return NULL;
         
         int rootData=p[pres];
