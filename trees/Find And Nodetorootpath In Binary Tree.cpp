@@ -30,14 +30,14 @@ bool pathexist(TreeNode* root,int data)
         bool lp=pathexist(root->left,data)
         if(lp)
         {
-            vec.push_back(root->left->val);
+            vec.push_back(root->val);
             return true;
         }
         
         bool rp=pathexist(root->right,data)
         if(rp)
         {
-            vec.push_back(root->right->val);
+            vec.push_back(root->val);
             return true;
         }
         
