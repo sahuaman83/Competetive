@@ -1,16 +1,14 @@
 struct BinaryTreeNode* removeLeaves(struct BinaryTreeNode* root) {
-    if (root != NULL)
-    {
+    if (root == NULL)
+        return NULL;
         if (root->left == NULL && root->right == NULL)
         {
             free(root);
-            return NULL;
+            return NULL; //sending itself as NULL
         }
-        else
-        {
-            root->left = removeLeaves(root->left);
-            root->right = removeLeaves(root->right);
-        }
-    }
+            BinaryTreeNode* lt= removeLeaves(root->left);
+            BinaryTreeNode* rt= removeLeaves(root->right);
+            root->left=lt;
+            root->right=rt;
     return root;
 }
