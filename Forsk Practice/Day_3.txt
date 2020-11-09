@@ -1,0 +1,234 @@
+# ML Introduction
+
+"""
+Mind Map of Machine Learning
+
+                                Machine Learning
+                                /           \
+                               /             \
+                              /               \
+                      Supervised             Unsupervised
+                       /  \                   /       \
+                      /    \                 /         \
+                     /      \               /           \
+                    /        \             /             \ 
+           Regression     Classification  Clustering    Association
+           |-SLR          |-Logistic       |-kmeans      |-Apriori
+           |-MLR          |-kNN            |-Dbscan
+           |-PLR          |-SVM            |-Hierarical
+           |-DS           |-DS
+           |-RF           |-RF
+           |-SVR          |-Naive Bayes
+
+
+SLR = Simple Linear Regression
+MLR = Multiple Linear Regression
+PLR = Polynomial Linear Regression
+DS  = Decission Tree 
+RF  = Random Forest 
+SVR = Support Vector Regression
+SVM = Support Vector Machines 
+"""
+
+
+# Simple Linear Regression 
+
+
+#Importing Libraries
+import pandas as pd  
+import numpy as np  
+import matplotlib.pyplot as plt  
+
+
+#imports the CSV dataset using pandas
+dataset = pd.read_csv('student_scores.csv')  
+
+
+#explore the dataset
+print (dataset.shape)
+print (dataset.ndim)
+print (dataset.head())
+print (dataset.describe())
+
+#check data types for each column
+print (dataset.dtypes)
+
+#Check if any NaN values in dataset
+dataset.isnull().any(axis=0)
+
+# Check for outlier values
+# Also helps in finding the data distribution 
+#plt.boxplot(dataset.values)
+
+
+# In the last example 
+x = [1,2,3,4,5]
+y = [1,2,3,4,5]
+#plt.axis([0, 6, 0, 6])
+
+# This is how the points are scattered
+plt.scatter(x,y)
+
+# Graphically if we see the slope is 1 and incercept is 0
+plt.plot(x,y)
+
+
+
+# let's plot our data points on 2-D graph to eyeball our dataset 
+# and see if we can manually find any relationship between the data. 
+dataset.plot(x='Hours', y='Scores', style='o')  
+plt.title('Hours vs Percentage')  
+plt.xlabel('Hours Studied')  
+plt.ylabel('Percentage Score')  
+plt.show()
+
+
+#prepare the data to train the model
+features = dataset.iloc[:, 0:1]
+print(type(features))
+print(type(features.values))
+                        
+features = dataset.iloc[:, 0:1].values   # Needs to be passed as 2D with 1 col
+labels = dataset.iloc[:, 1].values 
+
+
+# import the scikit learn library to import the algorithm
+from sklearn.linear_model import LinearRegression  
+
+# Create the object of the class, which is known as MODEL
+regressor = LinearRegression()  
+
+# Now we need to train the MODEL to make him learn the features and labels
+regressor.fit(features, labels) 
+
+# To see the value of the intercept and slop calculated by the linear regression 
+# algorithm for our dataset, execute the following code.
+print(regressor.intercept_)  # intercept of the line (2.483673405373196)
+print (regressor.coef_) # slope of the line (9.77580339)
+
+
+# what would be prediction of score if someone studies 9 hours
+# y = (m)x + (c)   where m is the slope and c is the inetrcept
+print (regressor.coef_*10 + regressor.intercept_)  
+
+
+# This can also be predicted using a function 
+x = [10]
+x = np.array(x)
+x = x.reshape(1,1)
+print (regressor.predict(x))   # [[10]] needs to be passed as 2D array with 1 col
+
+
+#Visualize the best fit line
+import matplotlib.pyplot as plt
+
+
+# Visualising the  results
+plt.scatter(features, labels, color = 'red')
+plt.plot(features, regressor.predict(features), color = 'blue')
+plt.title('Study Hours and Exam Score')
+plt.xlabel('Study Hours')
+plt.ylabel('Exam Score: Marks')
+plt.show()
+
+
+
+#Please add KNN code here, ceasarian code
+
+
+
+import sklearn as sk  
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Last column marks whether it was caesarian or not ( 1 or 0 )
+df = pd.read_csv('caesarian.csv')  
+print (df.head())
+
+
+#get features and labels for our dataset
+
+labels = df.iloc[:,5].values 
+features = df.iloc[:,:5].values
+
+
+# Splitting the dataset into the Training set and Test set
+from sklearn.model_selection import train_test_split
+features_train, features_test, labels_train, labels_test = train_test_split(features, labels, test_size = 0.25)
+
+# Feature Scaling
+"""
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+features_train = sc.fit_transform(features_train)
+features_test = sc.transform(features_test)
+"""
+
+# Fitting kNN to the Training set
+from sklearn.neighbors import KNeighborsClassifier
+
+
+# When p = 1, this is equivalent to using manhattan_distance (l1), 
+# and euclidean_distance (l2) for p = 2
+classifier = KNeighborsClassifier(n_neighbors = 5, p = 2) 
+
+
+classifier.fit(features_train, labels_train)
+
+#Calculate Class Probabilities
+probability = classifier.predict_proba(features_test)
+
+# Predicting the class labels
+labels_pred = classifier.predict(features_test)
+
+# Comparing the predicted and actual values
+my_frame= pd.DataFrame(labels_pred, labels_test)
+print(my_frame)
+
+# Making the Confusion Matrix
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(labels_test, labels_pred)
+
+print(cm)
+# You cannot create confusion Matrix in case of Regression
+# Since u cannot compare 2 continuous value
+
+# Score
+#print( (cm[0][0] + cm[1][1]) / (cm[0][0] + cm[1][1] + cm[0][1] + cm[1][0]))
+
+
+"""
+Code Challenge
+  Name: 
+    Food Truck Profit Prediction Tool
+  Filename: 
+    Foodtruck.py
+  Dataset:
+    Foodtruck.csv
+  Problem Statement:
+    Suppose you are the CEO of a restaurant franchise and are considering 
+    different cities for opening a new outlet. 
+    
+    The chain already has food-trucks in various cities and you have data for profits 
+    and populations from the cities. 
+    
+    You would like to use this data to help you select which city to expand to next.
+    
+    Perform Simple Linear regression to predict the profit based on the 
+    population observed and visualize the result.
+    
+    Based on the above trained results, what will be your estimated profit, 
+    
+    If you set up your outlet in Jaipur? 
+    (Current population in Jaipur is 3.073 million)
+        
+  Hint: 
+    You will implement linear regression to predict the profits for a 
+    food chain company.
+    Foodtruck.csv contains the dataset for our linear regression problem. 
+    The first column is the population of a city and the second column is the 
+    profit of a food truck in that city. 
+    A negative value for profit indicates a loss.
+"""
+
