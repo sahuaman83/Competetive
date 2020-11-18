@@ -12,21 +12,29 @@ int main(){
     crap;
         ll n;
         cin>>n;
-        int arr[n+1]={0};
-        arr[0]=1;arr[1]=1;
+        int spf[n+1]={0};
+        for(int i=2;i<=n;i++)
+        {
+            spf[i]=i;
+        }
         for(int i=2;i*i<=n;i++)
         {
-                for(int j=i*i;j<=n;j+=i) //it can also be run from j=i*2 but for more optimise we done this
+            if(spf[i]==i) 
+            {
+                for(int j=i*i;j<=n;j+=i) 
                 {
-                    arr[j]=1;
+                    if(spf[j]==j)
+                    spf[j]=i;
                 }
+            }
         }
-        for(int i=1;i<=n;i++)
+        while(n!=1)
         {
-         if(!arr[i])
-             cout<<i<<endl;
+            cout<<spf[n]<<" ";
+            n=n/spf[n];
+            
         }
-    return 0;
+        return 0;
 }
 
 
