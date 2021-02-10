@@ -1,58 +1,46 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define ll long long
-#define endl '\n'
 
-int main(){
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        ll a[n];
-        for(int i=0;i<n;i++)
-             cin>>a[i];
-        ll x=0;
-        for(int i=0;i<n;i++)
-        {
-            x^=a[i];
-            x^=i+1;
-        }
-        ll pos=x & ~(x - 1); // first set bit from right
-        x=0; ll y=0;
-        for(int i=0;i<n;i++)
-        {
-            if(a[i]&pos)
-            x^=a[i];
-            else
-            y^=a[i];
-            
-        }
-        for(int i=1;i<=n;i++)
-        {
-            if(i&pos)
-            x^=i;
-            else
-            y^=i;
-        }
-        bool flag=0;
-        for(int i=0;i<n;i++)
-        {
-            if(x==a[i])
-            {
-            flag=1;
-            break;
-            }
-        }
-        if(flag)
-        cout<<x<<" "<<y<<endl;
-        else
-        cout<<y<<" "<<x<<endl;
-        
-        
+class Solution{
+public:
+    int *findTwoElement(int *a, int n) {
+    int x=0,y=0,z=0;
+    for(int i=0;i<n;i++)
+    {
+        x^=a[i];
+        x^=(i+1);
     }
-        
-}
+    int pos= x & ~(x-1);
+    for(int i=0;i<n;i++)
+    {
+        if(pos & a[i])
+        y^=a[i];
+        else
+        z^=a[i];
+
+        if(pos & (i+1))
+                y^=(i+1);
+        else
+                z^=(i+1);
+    }
+    bool f=0;
+    int *ans = new int[2];
+    for(int i=0;i<n;i++)
+    {
+        if(a[i]==y)
+        {
+            f=1;
+            break;
+        }
+    }
+    if(f)
+    {
+    ans[0]=y; ans[1]=z;
+    }
+    else
+    {
+    ans[0]=z; ans[1]=y;
+    }
+// cout<<ans[0]<<ans[1];
+return ans;
+
+    }
+};
